@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* -webkit-app-region: drag; */
+  -webkit-app-region: drag;
 }
 
 /* 左侧边栏 */
@@ -20,6 +20,7 @@
   padding: 20px 0;
   position: relative;
   z-index: 10; /* 确保模糊效果正常显示 */
+  -webkit-app-region: no-drag;
 }
 
 .user-avatar {
@@ -71,4 +72,5 @@
 .chat-window {
   flex: 1;
   overflow: hidden;
+  -webkit-app-region: no-drag;
 }

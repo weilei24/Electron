@@ -43,7 +43,7 @@ const notifyAddContact = async (req, res) => {
   }
   try {
     //获取谁发送好友请求
-    const user = await UserInfoModel.findOne({ userId: applyUserId });
+    const user = await UserInfoModel.findOne({ userId: applyUserId }).lean();
     // 这里可以添加逻辑来通知用户
     console.log(user);
     const contact = await UserContactApplyModel.create({
@@ -52,6 +52,7 @@ const notifyAddContact = async (req, res) => {
       receiveUserId: receiveUserId,
       contactId: contactId,
       applyInfo: applyInfo,
+      avatar: user.avatar || "default_avatar.png", // 默认头像
     });
     res.apiSuccess(contact);
   } catch (error) {
@@ -83,18 +84,27 @@ const agreeAddContact = async (req, res) => {
   try {
     const newUser = await UserInfoModel.findOne({ userId: contactId }).lean();
     const user = await UserInfoModel.findOne({ userId: userId }).lean();
-
+    //双方好友建立
     await UserContactModel.create({
       userId: userId,
       contactId: contactId,
       contactNickName: newUser.nickName,
       avatar: newUser.avatar || "default_avatar.png", // 默认头像
+      status: 1,
     });
+    //双方好友建立
     await UserContactModel.create({
       userId: contactId,
       contactId: userId,
       contactNickName: user.nickName,
       avatar: user.avatar || "default_avatar.png", // 默认头像
+      status: 1, // 设置为好友状态
+    });
+    //更新好友申请状态
+
+    const filter = { contactId: contactId };
+    await UserContactApplyModel.updateOne(filter, {
+      status: 1,
     });
 
     res.apiSuccess("Contact request accepted");

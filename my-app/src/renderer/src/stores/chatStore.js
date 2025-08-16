@@ -8,10 +8,11 @@ export const useChatStore = create((set, get) => ({
 
   // Set the active user to chat with
   setActiveChatUserId: async (targetUserId) => {
+    console.log('Setting active chat user ID:', targetUserId)
     const currentUserId = useUserInfoStore.getState().userInfo?.userId
-    // if (!targetUserId || !currentUserId || get().activeChatUserId === targetUserId) {
-    //   return;
-    // }
+    if (!targetUserId || !currentUserId || get().activeChatUserId === targetUserId) {
+      return
+    }
 
     set({ activeChatUserId: targetUserId, messages: [] }) // Clear previous messages
 
@@ -31,7 +32,7 @@ export const useChatStore = create((set, get) => ({
   addMessage: (message) => {
     const { senderId, receiverId } = message
     const activeChatUserId = get().activeChatUserId
-    const currentUserId = useUserInfoStore.getState().userInfo?.id
+    const currentUserId = useUserInfoStore.getState().userInfo?.userId
 
     // Only add the message if it belongs to the currently active chat
     if (

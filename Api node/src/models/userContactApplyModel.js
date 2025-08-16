@@ -17,6 +17,10 @@ let UserContactApplySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String,
+    default: "default_avatar.png",
+  },
   contactType: {
     type: String,
     enum: [0, 1], //好友,群组
@@ -31,7 +35,7 @@ let UserContactApplySchema = new mongoose.Schema({
   status: {
     type: Number,
     enum: [0, 1, 2, 3], // 待处理, 一同意, 一拒绝, 一拉黑
-    default: 1,
+    default: 0,
   },
   applyInfo: {
     type: String,

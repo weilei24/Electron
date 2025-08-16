@@ -3,6 +3,7 @@ import { Avatar, Button, Select, Checkbox, InputNumber, Slider, message } from '
 import { useNavigate } from 'react-router-dom'
 import './Setting.css'
 import { logoutService } from '@/utils/service'
+import { useUserInfoStore } from '@/stores/userInfoStore'
 
 const Setting = () => {
   const navigate = useNavigate()
@@ -11,7 +12,7 @@ const Setting = () => {
   const [keepChatHistory, setKeepChatHistory] = useState(true)
   const [voiceToText, setVoiceToText] = useState(false)
   const [fontSize, setFontSize] = useState(14)
-
+  const { userInfo } = useUserInfoStore()
   const logout = () => {
     logoutService().then((res) => {
       message.success('已退出登录')
@@ -31,10 +32,13 @@ const Setting = () => {
           <div className="profile-info">
             <Avatar
               size={50}
-              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+              src={
+                userInfo.avatar ||
+                'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+              }
             />
             <div className="user-details">
-              <div className="username">Matthew</div>
+              <div className="username">{userInfo.nickName}</div>
               <div className="user-status">在线</div>
             </div>
           </div>

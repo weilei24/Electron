@@ -30,7 +30,7 @@ let UserContactSchema = new mongoose.Schema({
   status: {
     type: Number,
     enum: [0, 1, 2, 3], // 非好友, 好友, 删除, 拉黑
-    default: 1,
+    default: 0,
   },
 });
 // Create a model based on the schema

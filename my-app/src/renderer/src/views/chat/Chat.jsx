@@ -53,18 +53,14 @@ const Chat = () => {
           if (res.code === 200) {
             setChatList(res.data)
             // If there's a chatId in the URL, set it as active
-
-            const firstContactId = res.data[0]?.contactId.toString()
-            navigate(`/main/chat/${firstContactId}`)
-            setActiveChatUserId(firstContactId)
-            // if (chatId) {
-            //   setActiveChatUserId(chatId)
-            // } else if (res.data.length > 0) {
-            //   //Otherwise, default to the first contact
-            //   const firstContactId = res.data[0]?.contactId.toString()
-            //   navigate(`/main/chat/${firstContactId}`)
-            //   setActiveChatUserId(firstContactId)
-            // }
+            if (!chatId) {
+              setActiveChatUserId(chatId)
+            } else if (res.data.length > 0) {
+              //Otherwise, default to the first contact
+              const firstContactId = res.data[0]?.contactId.toString()
+              navigate(`/main/chat/${firstContactId}`)
+              setActiveChatUserId(firstContactId)
+            }
           }
         } catch (error) {
           message.error('Failed to fetch chatList.')
@@ -122,7 +118,8 @@ const Chat = () => {
   // const filteredContacts = chatList.filter((c) =>
   //   c.username.toLowerCase().includes(searchText.toLowerCase())
   // )
-  console.log('Chat component rendered with activeChatUserId:', activeChatUserId)
+  console.log('messages', messages)
+
   return (
     <div className="chat-container">
       <div className="chat-list">
@@ -138,7 +135,7 @@ const Chat = () => {
         <div className="chat-items">
           {chatList.map((contact) => (
             <div
-              key={contact.id}
+              key={contact.contactId}
               className={`chat-item ${activeChatUserId === contact.contactId.toString() ? 'active' : ''}`}
               onClick={() => selectChat(contact.contactId)}
             >
@@ -185,23 +182,15 @@ const Chat = () => {
             </div>
           ))}
         </div>
-
         <div className="input-area">
           <div className="input-container">
             <TextArea
+              rows={6}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="输入消息..."
-              onKeyPress={handleKeyPress}
-              autoSize={{ minRows: 1, maxRows: 4 }}
-              // disabled={!activeChatUserId}
-            />
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              shape="circle"
-              className="send-button"
-              onClick={sendMessage}
+              onKeyDown={handleKeyPress}
+              autoSize={{ minRows: 4, maxRows: 8 }}
               // disabled={!activeChatUserId}
             />
           </div>

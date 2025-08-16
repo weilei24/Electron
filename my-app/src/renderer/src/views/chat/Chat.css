@@ -60,6 +60,7 @@
   font-weight: bold;
   margin-bottom: 4px;
   color: #fff;
+  padding-right: 20px;
 }
 
 .chat-message {
@@ -158,7 +159,6 @@
 
 .input-container .ant-input {
   flex: 1;
-  border-radius: 20px;
   resize: none;
 }
 

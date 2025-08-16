@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Modal, Space } from 'antd'
+import { Avatar, Modal, Space, Flex } from 'antd'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import {
   MessageOutlined,
@@ -33,12 +33,12 @@ const Main = () => {
   useEffect(() => {
     if (location.pathname.startsWith('/main/chat')) {
       setActiveMenu('chat')
-      // 如果路径包含聊天ID，更新activeChatId
-      const chatIdMatch = location.pathname.match(/\/main\/chat\/(\d+)/)
-      console.log('Chat ID Match:', chatIdMatch)
-      if (chatIdMatch) {
-        setActiveChatId(parseInt(chatIdMatch[1]))
-      }
+      // // 如果路径包含聊天ID，更新activeChatId
+      // const chatIdMatch = location.pathname.match(/\/main\/chat\/(\d+)/)
+      // console.log('Chat ID Match:', chatIdMatch)
+      // if (chatIdMatch) {
+      //   setActiveChatId(parseInt(chatIdMatch[1]))
+      // }
     } else if (location.pathname.startsWith('/main/contacts')) {
       setActiveMenu('contacts')
     } else if (location.pathname.startsWith('/main/setting')) {
@@ -100,12 +100,12 @@ const Main = () => {
       </div>
 
       <Modal
-        visible={visible}
+        open={visible}
         onCancel={() => setVisible(false)}
         footer={null}
         width={400}
         className="friend-info-modal"
-        closable={true}
+        closable={false}
         maskClosable={true}
         centered={false}
       >
@@ -155,10 +155,12 @@ const Main = () => {
             </div>
 
             <div className="action-buttons action-buttons-modal">
-              <Space size={24}>
-                <ShareAltOutlined style={{ fontSize: 24 }} />
-                <MessageOutlined onClick={handleSendMessage} style={{ fontSize: 24 }} />
-              </Space>
+              <Flex align="end" justify="flex-end">
+                <Space size={24}>
+                  <ShareAltOutlined style={{ fontSize: 24 }} />
+                  <MessageOutlined onClick={handleSendMessage} style={{ fontSize: 24 }} />
+                </Space>
+              </Flex>
             </div>
           </div>
         )}
