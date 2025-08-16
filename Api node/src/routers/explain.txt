@@ -1,0 +1,10 @@
+resful API 是一种特殊风格的接口,主要有以下特点
+ url中不能有动词,例如 create delete update 等这些词
+
+ 操作资源要与http 请求方法对应
+ 操作结果要与http 响应状态码对应
+
+ 新增 POST
+ 删除 delete
+ 修改 PUT/PATCH
+ 获取 GET

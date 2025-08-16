@@ -1,0 +1,100 @@
+.settings-page {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(25, 25, 25, 1);
+}
+
+.settings-section {
+  background-color: rgba(44, 44, 44, 1);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.account-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-details {
+  margin-left: 15px;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.user-status {
+  color: #07c160;
+  font-size: 14px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.setting-status {
+  font-size: 14px;
+  color: #fff;
+}
+
+.setting-description {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.auto-download-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.download-text {
+  font-size: 14px;
+  color: #fff;
+}
+
+.font-size-controls {
+  display: flex;
+  align-items: center;
+}
+
+.font-size-label {
+  font-size: 14px;
+  color: #fff;
+}
+.ant-checkbox-wrapper {
+  color: #fff;
+}
