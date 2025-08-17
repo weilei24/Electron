@@ -21,6 +21,10 @@ let UserInfoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String,
+    default: "default_avatar.png",
+  },
   joinType: {
     type: Number,
     enum: [0, 1], //0:公开 1:私密

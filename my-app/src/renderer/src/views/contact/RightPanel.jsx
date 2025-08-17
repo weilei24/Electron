@@ -3,6 +3,7 @@ import { Button, Avatar } from 'antd'
 import { UserOutlined, AntDesignOutlined } from '@ant-design/icons'
 
 const RightPanel = ({ currentSelectedFriend, handleAgreeRequest, handleSendMessage }) => {
+  console.log('currentSelectedFriend', currentSelectedFriend)
   return (
     currentSelectedFriend && (
       <div className="contact-right-panel">
@@ -17,14 +18,7 @@ const RightPanel = ({ currentSelectedFriend, handleAgreeRequest, handleSendMessa
               </div>
               <div className="friend-signature">どこか遠くへ行きたい。</div>
             </div>
-            <img
-              src={
-                currentSelectedFriend?.avatar ||
-                'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-              }
-              className="info-avatar"
-              alt="阿蓉"
-            />
+            <Avatar shape="square" size={64} src={currentSelectedFriend.avatar} />
           </div>
 
           <div className="contact-details">
@@ -59,15 +53,17 @@ const RightPanel = ({ currentSelectedFriend, handleAgreeRequest, handleSendMessa
           </div>
 
           <div className="action-buttons ">
-            <Button
-              style={{ backgroundColor: '#3cc160' }}
-              type="primary"
-              onClick={handleSendMessage}
-            >
-              发消息
-            </Button>
+            {currentSelectedFriend?.status === 1 && (
+              <Button
+                style={{ backgroundColor: '#3cc160' }}
+                type="primary"
+                onClick={handleSendMessage}
+              >
+                发消息
+              </Button>
+            )}
 
-            {currentSelectedFriend?.status !== 1 && (
+            {currentSelectedFriend?.status === 0 && (
               <Button
                 type="primary"
                 style={{ backgroundColor: '#3cc160' }}

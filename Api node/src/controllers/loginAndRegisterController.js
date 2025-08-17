@@ -1,12 +1,10 @@
-const jwt = require("jsonwebtoken");
-
-const userInfoModel = require("../models/userInfoModel");
 const md5 = require("md5");
-
+const userInfoModel = require("../models/userInfoModel");
+const jwt = require("jsonwebtoken");
 const { customAlphabet } = require("nanoid");
 
 //登陆模块
-const getUserByCredentials = async (req, res) => {
+const login = async (req, res) => {
   const { phone, password } = req.body;
   if (!phone || !password) {
     return res.apiError("phone and password can not be empty", 400);
@@ -22,16 +20,17 @@ const getUserByCredentials = async (req, res) => {
     }
 
     // 设置 session 数据 注意这里是异步的 需要等待保存完成再返回用户信息
-    req.session.userId = user._id;
-    req.session.phone = user.phone;
-    req.session.isLoggedIn = true;
+    // req.session.userId = user._id;
+    // req.session.phone = user.phone;
+    // req.session.isLoggedIn = true;
 
-    //设置session 后 等待一小段时间确保保存完成
-    setTimeout(() => {
-      console.log("Session data set:", req.session);
-    }, 100);
-    //创建当前用户token
-    let token = jwt.sign({ phone: user.phone, _id: user._id }, "userInfo", {
+    // //设置session 后 等待一小段时间确保保存完成
+    // setTimeout(() => {
+    //   console.log("Session data set:", req.session);
+    // }, 100);
+
+    //设置token
+    let token = jwt.sign({ userId: user.userId }, "userToken", {
       expiresIn: 60 * 60 * 24 * 7, //一周过期
     });
 
@@ -42,7 +41,7 @@ const getUserByCredentials = async (req, res) => {
   }
 };
 //注册模块
-const createUser = async (req, res) => {
+const register = async (req, res) => {
   if (!req.body.nickName || !req.body.phone || !req.body.password) {
     return res.apiError("phone and password can not be empty", 400);
   }
@@ -61,21 +60,7 @@ const createUser = async (req, res) => {
     res.apiError("Internal server error", 500);
   }
 };
-//退出
-const userLogout = async (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      res.apiError("Failed to logout", 500);
-      return;
-    }
-    console.log("Session destroyed:", req.session);
-    res.apiSuccess();
-  });
-};
-
 module.exports = {
-  getUserByCredentials,
-  createUser,
-  userLogout,
+  login,
+  register,
 };

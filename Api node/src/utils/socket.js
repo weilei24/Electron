@@ -46,8 +46,6 @@ const socketServer = (server) => {
           receiverId,
           messageType,
           content,
-          senderAvatar: senderUser.avatar || "default_avatar.png",
-          receiverAvatar: receiveUser.avatar || "default_avatar.png",
         });
         await newMessage.save();
 

@@ -2,7 +2,7 @@ const UserContactModel = require("../models/userContactModel");
 const UserInfoModel = require("../models/userInfoModel");
 const UserContactApplyModel = require("../models/userContactApplyModel");
 
-//查询联系人
+//查用户信息
 const getUserInfo = async (req, res) => {
   const { userId } = req.query;
   console.log("Received userId:", req.query);
@@ -19,6 +19,7 @@ const getUserInfo = async (req, res) => {
     res.apiError("Internal server error", 500);
   }
 };
+//查询联系人信息
 const getUserContacts = async (req, res) => {
   const { userId } = req.query;
   console.log("Received userId:", req.query);

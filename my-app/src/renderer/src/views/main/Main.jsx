@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Avatar, Modal, Space, Flex } from 'antd'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import {
@@ -11,14 +11,36 @@ import {
 } from '@ant-design/icons'
 import './Main.css'
 import { useUserInfoStore } from '@/stores/userInfoStore'
-
+import { updateAvatarService } from '@/utils/service'
 const Main = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [activeChatId, setActiveChatId] = useState(null)
   const [activeMenu, setActiveMenu] = useState('chat')
   const [visible, setVisible] = useState(false)
-  const { userInfo } = useUserInfoStore()
+  const { userInfo, setUserInfo } = useUserInfoStore()
+  const fileInputRef = useRef(null)
+  //更新用户头像
+  const handleAvatarClick = () => {
+    fileInputRef.current.click()
+  }
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const formData = new FormData()
+      formData.append('avatar', file)
+      try {
+        const response = await updateAvatarService(formData)
+        // Assuming the response contains the updated user info with the new avatar URL
+        if (response.data) {
+          setUserInfo({ ...userInfo, avatar: response.data.avatarUrl })
+        }
+      } catch (error) {
+        console.error('Failed to update avatar:', error)
+      }
+    }
+  }
   const selectMenu = (menuItem) => {
     setActiveMenu(menuItem)
     if (menuItem === 'chat') {
@@ -51,13 +73,14 @@ const Main = () => {
   const handleSendMessage = () => {
     // Add logic to send message to the user
   }
+  console.log('User Info:', userInfo)
   return (
     <div className="wechat-container">
       {/* 左侧边栏 */}
       <div className="sidebar">
         {/* 用户头像 */}
         <div className="user-avatar" onClick={() => setVisible(true)}>
-          <Avatar size={40} src={userInfo.avatar} />
+          <Avatar size={36} shape="square" src={userInfo.avatar} />
         </div>
 
         {/* 功能菜单 */}
@@ -121,14 +144,24 @@ const Main = () => {
                   微信号: {userInfo?.userId || '这个人很懒，什么都没留下'}
                 </div>
               </div>
-              <img
-                src={
-                  userInfo.avatar ||
-                  'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-                }
-                className="info-avatar"
-                alt={userInfo.nickName || '狸不开，桃不掉'}
-              />
+              <div className="info-avatar-container" onClick={handleAvatarClick}>
+                <img
+                  src={
+                    userInfo.avatar ||
+                    'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+                  }
+                  className="info-avatar"
+                  alt={userInfo.nickName || '狸不开，桃不掉'}
+                />
+                <CameraOutlined className="update-avatar-icon" />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+              </div>
             </div>
 
             <div className="contact-details">

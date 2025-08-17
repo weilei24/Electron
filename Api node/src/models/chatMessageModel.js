@@ -9,14 +9,7 @@ const ChatMessageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  senderAvatar: {
-    type: String,
-    default: "default_avatar.png",
-  },
-  receiverAvatar: {
-    type: String,
-    default: "default_avatar.png",
-  },
+
   messageType: {
     type: String,
     enum: ["text", "image", "file"],

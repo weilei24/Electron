@@ -20,7 +20,7 @@
   padding: 20px 0;
   position: relative;
   z-index: 10; /* 确保模糊效果正常显示 */
-  -webkit-app-region: no-drag;
+  -webkit-app-region: drag;
 }
 
 .user-avatar {
@@ -73,4 +73,23 @@
   flex: 1;
   overflow: hidden;
   -webkit-app-region: no-drag;
+}
+
+.chat-header {
+  -webkit-app-region: drag;
+}
+.info-avatar-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.update-avatar-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 5px;
 }

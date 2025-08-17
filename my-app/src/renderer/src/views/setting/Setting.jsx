@@ -16,6 +16,7 @@ const Setting = () => {
   const logout = () => {
     logoutService().then((res) => {
       message.success('已退出登录')
+      localStorage.removeItem('token')
       navigate('/login')
     })
   }
@@ -30,13 +31,7 @@ const Setting = () => {
       <div className="settings-section">
         <div className="account-info">
           <div className="profile-info">
-            <Avatar
-              size={50}
-              src={
-                userInfo.avatar ||
-                'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-              }
-            />
+            <Avatar shape="square" size={50} src={userInfo.avatar} />
             <div className="user-details">
               <div className="username">{userInfo.nickName}</div>
               <div className="user-status">在线</div>

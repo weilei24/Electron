@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RightOutlined } from '@ant-design/icons'
+import { Avatar } from 'antd'
 
 const ContactList = ({ contactList, selectFriend, currentSelectedFriend }) => {
   const [contactExpend, setContactExpend] = useState(false)
@@ -21,7 +22,7 @@ const ContactList = ({ contactList, selectFriend, currentSelectedFriend }) => {
         <div className="friend-list">
           {contactList.map((contact) => (
             <div
-              key={contact.id}
+              key={contact.userId}
               className={`friend-item ${
                 currentSelectedFriend &&
                 !currentSelectedFriend.applyUserId &&
@@ -31,14 +32,7 @@ const ContactList = ({ contactList, selectFriend, currentSelectedFriend }) => {
               }`}
               onClick={() => selectFriend(contact)}
             >
-              <img
-                src={
-                  contact.avatar ||
-                  'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-                }
-                className="friend-avatar"
-                alt={contact.contactNickName || '狸不开，桃不掉'}
-              />
+              <Avatar shape="square" size={36} src={contact.avatar} className="message-avatar" />
               <div className="chat-info">
                 <div className="chat-name">{contact.contactNickName || '狸不开，桃不掉'}</div>
               </div>

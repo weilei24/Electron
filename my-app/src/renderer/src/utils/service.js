@@ -46,3 +46,12 @@ export function addContactService(params) {
 export function getChatHistoryService(senderId, receiverId) {
   return request.get(`${api.getChatHistory}?senderId=${senderId}&receiverId=${receiverId}`)
 }
+
+//修改头像
+export function updateAvatarService(formData) {
+  return request.put(api.updateAvatar, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}

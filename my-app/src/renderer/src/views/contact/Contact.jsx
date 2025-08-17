@@ -24,6 +24,7 @@ const Contact = () => {
   const [searchText, setSearchText] = useState('')
   const [contactList, setContactList] = useState([])
   const [currentSelectedFriend, setCurrentSelectedFriend] = useState(null)
+  const [searchedFriendInfo, setSearchedFriendInfo] = useState(null)
   const [friendRequestsList, setFriendRequestsList] = useState([])
   const [addFriendModalVisible, setAddFriendModalVisible] = useState(false)
   const [friendRequestModalVisible, setFriendRequestModalVisible] = useState(false)
@@ -71,7 +72,7 @@ const Contact = () => {
     setSearchText(value)
     const response = await getUserInfoService(value)
     if (response.data) {
-      setCurrentSelectedFriend(response.data[0])
+      setSearchedFriendInfo(response.data[0])
       setAddFriendModalVisible(true)
     }
   }
@@ -129,7 +130,7 @@ const Contact = () => {
   const handleSendAddFriendNotifyClick = async () => {
     const params = {
       applyUserId: userInfo.userId,
-      receiveUserId: currentSelectedFriend.userId,
+      receiveUserId: searchedFriendInfo.userId,
       contactId: userInfo.userId,
       applyInfo: applyInfo.nickName
     }
@@ -184,7 +185,7 @@ const Contact = () => {
         visible={addFriendModalVisible}
         contactList={contactList}
         onCancel={() => setAddFriendModalVisible(false)}
-        currentSelectedFriend={currentSelectedFriend}
+        searchedFriendInfo={searchedFriendInfo}
         userInfo={userInfo}
         handleAddFriendClick={handleAddFriendClick}
         handleSendMessage={handleSendMessage}
@@ -194,7 +195,7 @@ const Contact = () => {
       <AddFriendRequestModal
         visible={friendRequestModalVisible}
         onCancel={() => setFriendRequestModalVisible(false)}
-        onOk={handleSendAddFriendNotifyClick}
+        onOk={() => handleSendAddFriendNotifyClick()}
         userInfo={userInfo}
         setApplyInfo={setApplyInfo}
         applyInfo={applyInfo}

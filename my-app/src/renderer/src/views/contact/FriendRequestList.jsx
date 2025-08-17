@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { RightOutlined } from '@ant-design/icons'
+import { Avatar } from 'antd'
 
 const FriendRequestList = ({ friendRequestsList, selectFriend, currentSelectedFriend }) => {
   const [newFriendExpend, setNewFriendExpanded] = useState(false)
@@ -31,14 +32,7 @@ const FriendRequestList = ({ friendRequestsList, selectFriend, currentSelectedFr
               }`}
               onClick={() => selectFriend(friend)}
             >
-              <img
-                src={
-                  friend.avatar ||
-                  'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-                }
-                className="friend-avatar"
-                alt={friend.applyNickName || '狸不开，桃不掉'}
-              />
+              <Avatar shape="square" size={36} src={friend.avatar} className="message-avatar" />
               <div className="chat-info">
                 <div className="chat-name">
                   {friend.applyNickName || '狸不开，桃不掉'}

@@ -23,6 +23,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState('')
   const [chatList, setChatList] = useState([])
   const [searchText, setSearchText] = useState('')
+  const [activeContact, setActiveContact] = useState(null)
   const messageAreaRef = useRef(null)
 
   // Effect for WebSocket connection and message handling
@@ -60,6 +61,7 @@ const Chat = () => {
               const firstContactId = res.data[0]?.contactId.toString()
               navigate(`/main/chat/${firstContactId}`)
               setActiveChatUserId(firstContactId)
+              setActiveContact(res.data[0])
             }
           }
         } catch (error) {
@@ -77,11 +79,12 @@ const Chat = () => {
     }
   }, [messages])
 
-  const selectChat = (contactId) => {
-    const newChatId = contactId.toString()
+  const selectChat = (contact) => {
+    const newChatId = contact.contactId.toString()
     if (activeChatUserId !== newChatId) {
       navigate(`/main/chat/${newChatId}`)
       setActiveChatUserId(newChatId)
+      setActiveContact(contact)
     }
   }
 
@@ -137,10 +140,10 @@ const Chat = () => {
             <div
               key={contact.contactId}
               className={`chat-item ${activeChatUserId === contact.contactId.toString() ? 'active' : ''}`}
-              onClick={() => selectChat(contact.contactId)}
+              onClick={() => selectChat(contact)}
             >
               <div className="chat-avatar">
-                <Avatar size={40} src={contact.avatar} />
+                <Avatar shape="square" size={40} src={contact.avatar} />
               </div>
               <div className="chat-info">
                 <div className="chat-name">{contact.contactNickName}</div>
@@ -151,12 +154,12 @@ const Chat = () => {
       </div>
 
       <div className="chat-window">
-        {/* <div className="chat-header">
-          <div className="chat-title">{currentChatUser?.username || '选择一个聊天'}</div>
+        <div className="chat-header">
+          <div className="chat-title">{activeContact?.contactNickName || '选择一个聊天'}</div>
           <div className="chat-actions">
             <MoreOutlined />
           </div>
-        </div> */}
+        </div>
 
         <div className="message-area" ref={messageAreaRef}>
           {messages.map((msg, index) => (
@@ -165,9 +168,9 @@ const Chat = () => {
               className={`message-item ${msg.senderId === userInfo?.userId ? 'self' : 'other'}`}
             >
               <Avatar
+                shape="square"
                 size={30}
-                src={msg.senderAvatar}
-                // src={msg.senderId === userInfo?.userId ? msg.senderAvatar : msg.receiverAvatar}
+                src={msg.senderId === userInfo?.userId ? userInfo?.avatar : activeContact?.avatar}
                 className="message-avatar"
               />
               <div className="message-content">
