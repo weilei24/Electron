@@ -12,6 +12,7 @@ import {
 import './Main.css'
 import { useUserInfoStore } from '@/stores/userInfoStore'
 import { updateAvatarService } from '@/utils/service'
+import WindowControls from '../../components/WindowControls'
 const Main = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -78,6 +79,9 @@ const Main = () => {
     <div className="wechat-container">
       {/* 左侧边栏 */}
       <div className="sidebar">
+        {/*窗口操作按钮*/}
+        <WindowControls />
+
         {/* 用户头像 */}
         <div className="user-avatar" onClick={() => setVisible(true)}>
           <Avatar size={36} shape="square" src={userInfo.avatar} />

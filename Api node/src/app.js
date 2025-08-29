@@ -25,7 +25,7 @@ app.use(responseHandler); // 使用自定义的响应处理器
 
 // 2. 在所有 API 路由之前配置静态资源目录
 // 这样，对 /avatars 的请求会直接返回文件，不会执行下面的 token 检查,防止前端显示图片时候出错
-app.use("/avatars", express.static(path.join(__dirname, "avatar")));
+app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 
 //设置session中间件
 // app.use(

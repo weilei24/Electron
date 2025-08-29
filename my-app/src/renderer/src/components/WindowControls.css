@@ -1,0 +1,34 @@
+.window-controls {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  padding-bottom: 40px;
+}
+
+.control-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-right: 8px;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.control-btn.close {
+  background-color: #ff5f57;
+}
+
+.control-btn.minimize {
+  background-color: #ffbd2e;
+}
+
+.control-btn.maximize {
+  background-color: #27c93f;
+}
+
+.control-btn:focus {
+  outline: none;
+}

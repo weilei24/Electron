@@ -20,7 +20,7 @@
   padding: 20px 0;
   position: relative;
   z-index: 10; /* 确保模糊效果正常显示 */
-  -webkit-app-region: drag;
+  -webkit-app-region: no-drag;
 }
 
 .user-avatar {

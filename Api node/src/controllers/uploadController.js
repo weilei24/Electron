@@ -6,7 +6,7 @@ const { fetchToken } = require("../utils/fetchToken");
 const UserInfoModel = require("../models/userInfoModel"); // 1. 引入 UserInfoModel
 
 // 确保头像上传目录存在
-const avatarDirectory = path.join(__dirname, "../avatar");
+const avatarDirectory = path.join(__dirname, "../avatars");
 if (!fs.existsSync(avatarDirectory)) {
   fs.mkdirSync(avatarDirectory, { recursive: true });
 }
